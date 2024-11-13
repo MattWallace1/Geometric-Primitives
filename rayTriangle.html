@@ -1,0 +1,27 @@
+<!--Programmer: Chris Tralie!-->
+<!--Purpose: Front end point chooser / debugger for ray intersect triangle function!-->
+<html>
+<head>
+  <meta charset=utf-8></meta>
+  <script src = "gl-matrix-min.js"></script>
+  <script src = "plotly.min.js"></script>
+  <script src = "dat.gui.min.js"></script>
+  <script src = "geomprimitives.js"></script>
+  <script src = "guitools.js"></script>
+</head>
+<body>
+
+<h2><a name = "rayTriangle">Task 6: Ray Intersect Triangle (8 points)</a></h2>
+
+<p>
+  The purpose of this GUI is to help you test your ray intersect triangle task.  Choose a ray by specifying the endpoint <b>p0</b> and the direction <b>v</b>, and choose the three vertices of the triangle in question.  Then click "compute intersection."  The result will be shown in a 3D plot to the right.  If there is an intersection, the intersection point will be drawn as point <b>d</b>, and a line segment will be extended from the ray endpoint to that point.  If not, just the ray from <b>p0</b> to <b>p0 + v</b> will be drawn.
+</p>
+<div id = "rayTriViz"></div>
+
+<script>
+  let gui = new RayTriangleGUI();
+</script>
+
+
+</body>
+</html>

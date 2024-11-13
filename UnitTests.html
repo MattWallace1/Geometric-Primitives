@@ -1,0 +1,107 @@
+<!--Programmer: Chris Tralie!-->
+<html>
+<head>
+  <script src = "gl-matrix-min.js"></script>
+  <script src = "plotly.min.js"></script>
+  <script src = "geomprimitives.js"></script>
+  <script src = "tests.js"></script>
+</head>
+<body>
+
+<h1>Unit Tests for Mini Assignment 1 Part 1</h1>
+
+<p id = "results"></p>
+
+<script>
+getTableElem = function(name) {
+    let col = document.createElement("td");
+    col.innerHTML = "<h3>" + name + "</h3>";
+    return col;
+}
+
+results = document.getElementById("results");
+
+
+
+tests.forEach(function(item) {
+  // Make a new entry for this type of test
+  results.appendChild(document.createElement("br"))
+  results.appendChild(document.createElement("br"))
+  results.appendChild(document.createElement("hr"))
+  let title = document.createElement("h2");
+  results.appendChild(title);
+
+  // Create table and fill in first row
+  let table = document.createElement("table");
+  table.setAttribute("border", "1");
+  table.setAttribute("cellpadding", 10);
+  let elems = (item['argnames'].concat(['Your Answer', 'Reference Solution', 'Comments']))
+          .map(getTableElem);
+  let row = document.createElement("tr");
+  elems.forEach(function(elem){
+    row.appendChild(elem);
+  });
+  table.appendChild(row);
+
+  // Run all of the tests
+  fn = eval(item.fn);
+  numCorrect = 0;
+  item['examples'].forEach(function(test) {
+    let row = document.createElement("tr");
+
+    // First add the arguments
+    let args = evalArgs(test.args);
+    args.map(function(arg, i) {
+      return eval(item.argformat[i])(arg);
+    }).map(getTableElem)
+      .forEach(function(arg){
+      row.appendChild(arg);
+    });
+
+    // Now add the solution
+    let correct = false;
+    let ans = "";
+    let solans = eval(test.ans[0]).apply(null, test.ans[1]);
+    try {
+      ans = fn.apply(null, args);
+      if (!(ans == null)) {
+        correct = eval(item.checkNear)(ans, solans);
+        ans = eval(item.outputformat)(ans);
+      }
+    }
+    catch {
+      ans = "ERROR";
+    }
+    finally {
+      let elem = document.createElement("td");
+      if (correct) {
+        numCorrect += 1;
+        elem.innerHTML = "<font color = 'green'>" + ans + "</font>";
+      }
+      else {
+        elem.innerHTML = "<font color = 'red'>" + ans + "</font>";
+      }
+      row.appendChild(elem);
+      elem = document.createElement("td");
+      elem.innerHTML = eval(item.outputformat)(solans);
+      row.appendChild(elem);
+      if ('comments' in test) {
+        elem = document.createElement("td");
+        elem.innerHTML = test.comments;
+        row.appendChild(elem);
+      }
+
+      table.appendChild(row);
+    }
+  });
+  results.appendChild(table);
+
+  title.innerHTML = item.fn + "<font color = 'blue'>(" + numCorrect + " / " + item.examples.length + ")</font>";
+});
+</script>
+
+
+
+
+</body>
+</html>

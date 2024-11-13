@@ -1,0 +1,46 @@
+<!--Programmer: Chris Tralie!-->
+<!--Purpose: Front end point chooser / debugger for triangle barycenter function!-->
+<html>
+<head>
+    <meta charset=utf-8></meta>
+    <script src = "gl-matrix-min.js"></script>
+    <script src = "geomprimitives.js"></script>
+    <script src = "guitools.js"></script>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+<h2><a name = "barycenter">Task 5: Triangle Barycenter (8 points)</a></h2>
+<p>
+    In the GUI below, choose three points in the plane the plane (z = 0) to test make a triangle.  When selecting a triangle, left click to select the points, and right click to delete the most recently selected point.  Then, select a point somewhere else in the plane.  The 
+</p>
+
+<p>
+    <b>NOTE:</b> This GUI runs in the plane for simplicity (all z coordinates are zero), but this should work in 3D, as per the assignment spec.  So if the point is above or below the triangle, for instance, you should return (0, 0, 0).  Check out the unit tests to make sure your code works in 3D.
+</p>
+<table>
+<tr>
+<td width = "200">
+<table border = "1" cellpadding = 2>
+<tr><td colspan=2><button type = "button" onclick = "gui.selectTriangle()" id="selectingTriangle">Select Triangle</button></td></tr>
+<tr><td align = "right"><font color = "#0066ff"><b>a</b></font></td><td><div id="Point0">Not Selected</div></td></tr>
+<tr><td align = "right"><font color = "#ff9933"><b>b</b></font></td><td><div id="Point1">Not Selected</div></td></tr>
+<tr><td align = "right"><font color = "#33cc33"><b>c</b></font></td><td><div id="Point2">Not Selected</div></td></tr>
+<tr><td colspan=2><button type = "button" onclick = "gui.selectPoint()" id="selectingPoint">Select Point</button></td></tr>
+<tr><td align="right"><font color = "#cc00ff"><b>p</b></font></td><td><div id="p"></div></td></tr>
+</table>
+</td>
+<td>
+<canvas id = "barycanvas" width = "600" height = "600" style="border:1px solid #000000;">
+</canvas>
+</td>
+</tr>
+</table>
+
+<script>
+    let gui = new BarycentricGUI();
+</script>
+
+
+</body>
+</html>
